@@ -1,6 +1,6 @@
-<div ng-controller="boardControl">
-	<div ng-repeat="row in numbers">
-		<div ng-repeat="number in row" class="boardTile">
+<div ng-controller="boardControl" class="container">
+	<div ng-repeat="row in numbers" class="row">
+		<div ng-repeat="number in row" class="boardTile col-xs-4">
 			{{number}}
 		</div>
 	</div>

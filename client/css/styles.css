@@ -1,3 +1,16 @@
 .boardTile {
 	display: inline;
+	font-size: 2em;
+	border-style: solid;
+	border-width: 2px;
+	border-color: black;
+}
+
+.row {
+	text-align: center;
+	height: 40px;
+}
+
+.col-xs-4 {
+	height: 40px;
 }
