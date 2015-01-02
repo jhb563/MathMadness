@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html>
+	<h1> Hello Math Game </h1>
+	<div id="gameBoard">
+		<table>
+			<tr>
+				<td>3</td>
+				<td>8</td>
+				<td>4</td>
+			</tr>
+			<tr>
+			</tr>
+			<tr>
+			</tr>
+		</table>
+	</div>
+</html>
