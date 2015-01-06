@@ -1,6 +1,10 @@
 mathGameApp.factory('mathGameFactory', function($http) {
 	var urlBase = '/';
-	var _todoService = {};
+	var _gameService = {};
 
-	return _todoService;
+	_gameService.checkNumbers = function(numbers) {
+		return $http.post(urlBase + "checkNumbers",numbers);
+	}
+
+	return _gameService;
 });

@@ -1,6 +1,6 @@
 <div ng-controller="boardControl" class="container">
-	<div ng-repeat="row in numbers" class="row">
-		<div ng-repeat="number in row" class="boardTile col-xs-4">
+	<div ng-repeat="rowIndex in numberOfRows" class="row">
+		<div ng-repeat="number in numbers[rowIndex]" class="boardTile col-xs-4" ng-click="numberClicked(rowIndex,$index,number)">
 			{{number}}
 		</div>
 	</div>
