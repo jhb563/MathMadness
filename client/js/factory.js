@@ -2,9 +2,14 @@ mathGameApp.factory('mathGameFactory', function($http) {
 	var urlBase = '/';
 	var _gameService = {};
 
+
+	_gameService.getTestGame = function() {
+		return $http.get(urlBase + "testGame");
+	};
+
 	_gameService.checkNumbers = function(numbers) {
 		return $http.post(urlBase + "checkNumbers",numbers);
-	}
+	};
 
 	// Takes two lists of two integers, representing coordinates
 	// Returns an integer representing the direction from the first
@@ -18,6 +23,7 @@ mathGameApp.factory('mathGameFactory', function($http) {
 	// 6: Southwest
 	// 7: West
 	// 8: Northwest
+	// Note that the inputs are expected in row/column order
 	_gameService.getDirection = function(coordinate1,coordinate2) {
 		var x1 = coordinate1[1];
 		var y1 = coordinate1[0];
@@ -66,7 +72,7 @@ mathGameApp.factory('mathGameFactory', function($http) {
 		} else {
 			return 0;
 		}
-	}
+	};
 
 	// Takes a coordinate (list of two integers) and a integer representing
 	// a direction (1-8,see guide above). Returns a coordinate two moves in the
@@ -111,10 +117,10 @@ mathGameApp.factory('mathGameFactory', function($http) {
 				return [-1,-1];
 		}
 
-		var newX = coordinate[0] + 2*dx;
-		var newY = coordinate[1] + 2*dy;
+		var newX = coordinate[0] + 2*dy;
+		var newY = coordinate[1] + 2*dx;
 		return [newX, newY];
-	}
+	};
 
 	// Takes a list of three integers, and a target integer
 	// Returns true if the three numbers can combine to form the target
@@ -131,7 +137,7 @@ mathGameApp.factory('mathGameFactory', function($http) {
 			return true;
 		} else if (n1 * n2 - n3 == targetNumber) {
 			return true;
-		} else if (n1 % n2 != 0) {
+		} else if (n1 % n2 !== 0) {
 			// If we can't use exact division, then the answer is false
 			return false;
 		} else if (n1 / n2 + n3 == targetNumber) {
@@ -141,7 +147,7 @@ mathGameApp.factory('mathGameFactory', function($http) {
 		} else {
 			return false;
 		}
-	}
+	};
 
 	return _gameService;
 });

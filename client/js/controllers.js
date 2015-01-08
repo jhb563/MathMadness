@@ -1,16 +1,26 @@
 mathGameApp.controller('boardControl', function($rootScope, $scope, mathGameFactory) {
-	$scope.numbers = [[1,2,3],[4,5,6],[7,8,9]];
-	$scope.numberOfRows = [0,1,2];
-	$scope.targets = [5,26,65];
+	$scope.numbers = [];
+	$scope.numberOfRows = [];
+	$scope.targets = [];
 	$scope.targetIndex = 0;
-	$scope.targetNumber = $scope.targets[0];
+	$scope.targetNumber = -1
 	$scope.selectedNumbers = [];
 	$scope.selectedPosition = [];
+
+	mathGameFactory.getTestGame().then(function(data) {
+		$scope.numbers = data.data.numbers;
+		$scope.targets = data.data.targets;
+		$scope.numberOfRows = [];
+		for (var i = 0; i < $scope.numbers.length; ++i) {
+			$scope.numberOfRows.push(i);
+		}
+		$scope.targetNumber = $scope.targets[0];
+	});
 
 	$scope.numberClicked = function(row,column,number) {
 		var currentLength = $scope.selectedNumbers.length;
 		
-		if (currentLength == 0) {
+		if (currentLength === 0) {
 			// No numbers are currently selected, so just make this number the first
 			// and make its position the selected position
 			$scope.selectedNumbers.push(number);
@@ -20,17 +30,17 @@ mathGameApp.controller('boardControl', function($rootScope, $scope, mathGameFact
 			var directionToNewSquare = mathGameFactory.getDirection($scope.selectedPosition,[row,column]);
 			// ##########################################################################
 
-
 			// Look at the position selected. If it is adjacent,
 			// we can now figure out what three numbers are used.
 			if (directionToNewSquare > 0) {
 				// Get the third number in the proper direction
 				// ##########################################################################
-				var thirdNumberPos = mathGameFactory.thirdNumberFromPositionInDirection($scope.selectedPosition,directionToNewSquare);
+				var thirdNumberPos = mathGameFactory.thirdNumberPosition($scope.selectedPosition,directionToNewSquare);
 				var yGood = thirdNumberPos[1] >= 0 && thirdNumberPos[1] < $scope.numbers.length;
 				var xGood = thirdNumberPos[0] >= 0 && thirdNumberPos[0] < $scope.numbers[0].length;
 				// ##########################################################################
 
+				
 				
 				if (yGood && xGood) {
 					// If we can get three numbers...
